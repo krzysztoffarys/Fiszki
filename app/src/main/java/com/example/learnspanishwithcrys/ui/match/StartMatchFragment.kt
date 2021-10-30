@@ -12,7 +12,7 @@ class StartMatchFragment : Fragment(R.layout.start_match_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = StartMatchFragmentBinding.bind(view)
-        binding.btnStart.setOnClickListener {
+        binding.cvStart.setOnClickListener {
             findNavController().navigate(
                 StartMatchFragmentDirections.actionStartMatchFragmentToMatchFragment()
             )

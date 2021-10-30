@@ -25,12 +25,14 @@ class EndMatchFragment : Fragment(R.layout.end_match_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = EndMatchFragmentBinding.bind(view)
-        subscribeToObservers()
+
         if (args.victory) {
+            subscribeToObservers()
             val time = args.time.toDouble()
             binding.tv.text = (context?.getString(R.string.won) + " " + time)
             binding.tv.setTextColor(Color.GREEN)
             viewModel.addResult(time)
+            viewModel.allResults()
         } else {
             binding.tv.text = context?.getString(R.string.lose)
             binding.tv.setTextColor(Color.RED)
@@ -43,9 +45,11 @@ class EndMatchFragment : Fragment(R.layout.end_match_fragment) {
         }
 
         binding.btnBackToMenu.setOnClickListener {
-            TODO()
+            findNavController().navigate(
+                EndMatchFragmentDirections.actionEndMatchFragmentToMenuFragment()
+            )
         }
-        viewModel.allResults()
+
     }
 
     private fun subscribeToObservers() {

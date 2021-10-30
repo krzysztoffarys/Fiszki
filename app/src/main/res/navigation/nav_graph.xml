@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/startMatchFragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/startMatchFragment"
@@ -38,5 +38,47 @@
             android:name="time"
             app:argType="string"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_endMatchFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.learnspanishwithcrys.ui.menu.MenuFragment"
+        android:label="menu_fragment"
+        tools:layout="@layout/menu_fragment" >
+        <action
+            android:id="@+id/action_menuFragment_to_startMatchFragment"
+            app:destination="@id/startMatchFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeFragment"
+        android:name="com.example.learnspanishwithcrys.ui.write.WriteFragment"
+        android:label="write_fragment"
+        tools:layout="@layout/write_fragment" >
+        <action
+            android:id="@+id/action_writeFragment_to_endWriteFragment"
+            app:destination="@id/endWriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endWriteFragment"
+        android:name="com.example.learnspanishwithcrys.ui.write.EndWriteFragment"
+        android:label="end_write_fragment"
+        tools:layout="@layout/end_write_fragment" >
+        <action
+            android:id="@+id/action_endWriteFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
+        <action
+            android:id="@+id/action_endWriteFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <argument
+            android:name="correctAnswers"
+            app:argType="integer" />
+        <argument
+            android:name="incorrectAnswers"
+            app:argType="integer" />
     </fragment>
 </navigation>

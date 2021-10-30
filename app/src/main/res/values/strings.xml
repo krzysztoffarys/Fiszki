@@ -4,5 +4,13 @@
     <string name="play_again">Play Again</string>
     <string name="back_to_menu">Back to Menu</string>
     <string name="won">You won with time:</string>
-    <string name="lose">You lose.Do you want to try again? </string>
+    <string name="lose">You lose. Do you want to try again? </string>
+    <string name="match">Match</string>
+    <string name="write">Write</string>
+    <string name="flashcard">Flashcard</string>
+    <string name="test">Test</string>
+    <string name="logout">Logout</string>
+    <string name="type_spanish">Type the spanish:</string>
+    <string name="don_t_know">Don\'t know</string>
+    <string name="correct_answer">Correct Answer</string>
 </resources>

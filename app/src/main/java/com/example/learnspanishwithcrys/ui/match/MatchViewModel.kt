@@ -9,14 +9,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learnspanishwithcrys.data.model.Word
-import com.example.learnspanishwithcrys.other.Constants.delayMatch
-import com.example.learnspanishwithcrys.other.Constants.matchGameDuration
-import com.example.learnspanishwithcrys.other.Constants.timeMatch
+import com.example.learnspanishwithcrys.other.Constants.DELAY
+import com.example.learnspanishwithcrys.other.Constants.MATCH_GAME_DURATION
+import com.example.learnspanishwithcrys.other.Constants.TIME_MATCH
 import com.example.learnspanishwithcrys.other.Game
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -43,12 +42,12 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         _colorTitle.postValue(Color.BLACK)
     }
     private val _words = mutableListOf(
-        Word("0001", "el\ncharakteru", "charakter"),
-        Word("0002", "bueno", "dobry,\ngrzeczny"),
-        Word("0003", "malo", "zły,\nniegrzeczny"),
-        Word("0004", "amable", "uprzejmy,\nmiły"),
-        Word("0005", "grosero", "ordynarny,\ngrubiański"),
-        Word("0006", "simpático", "sympatyczny"),
+        Word("0001", "el charakteru", "charakter"),
+        Word("0002", "bueno", "dobry, grzeczny"),
+        Word("0003", "malo", "zły, niegrzeczny"),
+        Word("0004", "amable", "uprzejmy, miły"),
+        Word("0005", "grosero", "ordynarny, grubiański"),
+        Word("0006", "simpático", "sympatyczny")
     )
 
     val words = mutableListOf<String>()
@@ -77,10 +76,10 @@ class MatchViewModel @Inject constructor() : ViewModel() {
                     //good anwser
                     textView.setBackgroundColor(Color.GREEN)
                     selectedTextView.setBackgroundColor(Color.GREEN)
-                    counter -= timeMatch
+                    counter -= TIME_MATCH
                     _colorTitle.postValue(Color.GREEN)
                     viewModelScope.launch {
-                        delay(delayMatch)
+                        delay(DELAY)
                         textView.visibility = View.GONE
                         selectedTextView.visibility = View.GONE
                         wordLeft -= 2
@@ -94,10 +93,10 @@ class MatchViewModel @Inject constructor() : ViewModel() {
                     //bad answer
                     textView.setBackgroundColor(Color.RED)
                     selectedTextView.setBackgroundColor(Color.RED)
-                    counter += timeMatch
+                    counter += TIME_MATCH
                     _colorTitle.postValue(Color.RED)
                     viewModelScope.launch {
-                        delay(delayMatch)
+                        delay(DELAY)
                         textView.setBackgroundColor(Color.WHITE)
                         selectedTextView.setBackgroundColor(Color.WHITE)
                         reset()
@@ -136,7 +135,7 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         object : CountDownTimer(90000, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 counter += 0.1
-                if (counter > matchGameDuration) {
+                if (counter > MATCH_GAME_DURATION) {
                     _gameStatus.postValue(Game.lose(null))
                 }
                 _time.postValue("${(counter * 10).roundToInt().toDouble() / 10} seconds")
