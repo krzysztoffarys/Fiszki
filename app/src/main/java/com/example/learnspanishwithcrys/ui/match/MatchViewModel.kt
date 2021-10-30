@@ -137,7 +137,6 @@ class MatchViewModel @Inject constructor() : ViewModel() {
             override fun onTick(millisUntilFinished: Long) {
                 counter += 0.1
                 if (counter > matchGameDuration) {
-                    Timber.d("halo")
                     _gameStatus.postValue(Game.lose(null))
                 }
                 _time.postValue("${(counter * 10).roundToInt().toDouble() / 10} seconds")

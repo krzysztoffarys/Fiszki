@@ -3,4 +3,6 @@
     <string name="start_game">Start Game</string>
     <string name="play_again">Play Again</string>
     <string name="back_to_menu">Back to Menu</string>
+    <string name="won">You won with time:</string>
+    <string name="lose">You lose.Do you want to try again? </string>
 </resources>
