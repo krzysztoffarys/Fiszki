@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startMatchFragment">
+
+    <fragment
+        android:id="@+id/startMatchFragment"
+        android:name="com.example.learnspanishwithcrys.ui.match.StartMatchFragment"
+        android:label="start_match_fragment"
+        tools:layout="@layout/start_match_fragment" >
+        <action
+            android:id="@+id/action_startMatchFragment_to_matchFragment"
+            app:destination="@id/matchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchFragment"
+        android:name="com.example.learnspanishwithcrys.ui.match.MatchFragment"
+        android:label="match_fragment"
+        tools:layout="@layout/match_fragment" >
+        <action
+            android:id="@+id/action_matchFragment_to_endMatchFragment"
+            app:destination="@id/endMatchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endMatchFragment"
+        android:name="com.example.learnspanishwithcrys.ui.match.EndMatchFragment"
+        android:label="end_match_fragment"
+        tools:layout="@layout/end_match_fragment" >
+        <action
+            android:id="@+id/action_endMatchFragment_to_matchFragment"
+            app:destination="@id/matchFragment" />
+        <argument
+            android:name="victory"
+            app:argType="boolean" />
+        <argument
+            android:name="time"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
+</navigation>
