@@ -8,24 +8,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.learnspanishwithcrys.data.model.Word
 import com.example.learnspanishwithcrys.other.Constants.DELAY
 import com.example.learnspanishwithcrys.other.Game
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WriteViewModel : ViewModel() {
+@HiltViewModel
+class WriteViewModel @Inject constructor() : ViewModel() {
 
-    val words = mutableListOf(
-        Word("0001", "charakter", "el charakteru"),
-        Word("0002", "dobry, grzeczny", "bueno"),
-        Word("0003", "zły, niegrzeczny",  "malo"),
-        Word("0004", "uprzejmy, miły", "amable", "uprzejmy, miły"),
-        Word("0005", "ordynarny, grubiański", "grosero", "ordynarny, grubiański"),
-        Word("0006", "sympatyczny", "simpático")
-    )
-
+    lateinit var words : List<Word>
     //
     var correctAnswers = 0
     var incorrectAnswers = 0
     private var isFirstAnswer = true
+    val answers = mutableListOf<Boolean>()
 
     //
     private val _selectedWordId = MutableLiveData<Int>()
@@ -48,6 +44,9 @@ class WriteViewModel : ViewModel() {
     val onClickListener = View.OnClickListener {
         _answerVisibility.postValue(View.VISIBLE)
         _buttonVisibility.postValue(View.GONE)
+        answers.add(false)
+        incorrectAnswers++
+        isFirstAnswer = false
     }
 
 
@@ -55,6 +54,7 @@ class WriteViewModel : ViewModel() {
         _answerStatus.postValue(Game.ongoing(null))
         if (words[selectedWordId.value!!].spanish == answer) {
             if(isFirstAnswer) {
+                answers.add(true)
                 correctAnswers++
                 isFirstAnswer = false
             }
@@ -65,6 +65,7 @@ class WriteViewModel : ViewModel() {
             reset()
         } else {
             if(isFirstAnswer) {
+                answers.add(false)
                 incorrectAnswers++
                 isFirstAnswer = false
             }

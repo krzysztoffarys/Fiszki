@@ -13,6 +13,7 @@ import com.example.learnspanishwithcrys.other.Constants.DELAY
 import com.example.learnspanishwithcrys.other.Constants.MATCH_GAME_DURATION
 import com.example.learnspanishwithcrys.other.Constants.TIME_MATCH
 import com.example.learnspanishwithcrys.other.Game
+import com.example.learnspanishwithcrys.repositories.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     val time: LiveData<String> = _time
     private val _colorTitle = MutableLiveData<Int>()
     val colorTitle: LiveData<Int> = _colorTitle
+    private lateinit var  _words : List<Word>
     //
     private val _gameStatus = MutableLiveData<Game>()
     val gameStatus: LiveData<Game> = _gameStatus
@@ -41,14 +43,7 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         _gameStatus.postValue(Game.ongoing(null))
         _colorTitle.postValue(Color.BLACK)
     }
-    private val _words = mutableListOf(
-        Word("0001", "el charakteru", "charakter"),
-        Word("0002", "bueno", "dobry, grzeczny"),
-        Word("0003", "malo", "zły, niegrzeczny"),
-        Word("0004", "amable", "uprzejmy, miły"),
-        Word("0005", "grosero", "ordynarny, grubiański"),
-        Word("0006", "simpático", "sympatyczny")
-    )
+
 
     val words = mutableListOf<String>()
     val onClickListener = View.OnClickListener { textView ->
@@ -144,5 +139,9 @@ class MatchViewModel @Inject constructor() : ViewModel() {
                 _gameStatus.postValue(Game.lose(null))
             }
         }.start()
+    }
+
+    fun setWords(words: List<Word>) {
+        _words = words
     }
 }

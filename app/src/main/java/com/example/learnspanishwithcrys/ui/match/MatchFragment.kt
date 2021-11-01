@@ -4,11 +4,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.learnspanishwithcrys.R
 import com.example.learnspanishwithcrys.databinding.MatchFragmentBinding
 import com.example.learnspanishwithcrys.other.GameStatus
+import com.example.learnspanishwithcrys.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,11 +19,13 @@ class MatchFragment : Fragment(R.layout.match_fragment) {
 
     private lateinit var binding: MatchFragmentBinding
     private val viewModel: MatchViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = MatchFragmentBinding.bind(view)
+        viewModel.setWords(sharedViewModel.words)
         viewModel.prepareWords()
         setButtons()
         subscribeToObservers()
@@ -40,13 +45,21 @@ class MatchFragment : Fragment(R.layout.match_fragment) {
             when(Game.status) {
                 GameStatus.WIN -> {
                     val time = Game.message ?: ""
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.matchFragment, true)
+                        .build()
                     findNavController().navigate(
-                        MatchFragmentDirections.actionMatchFragmentToEndMatchFragment(true, time)
+                        MatchFragmentDirections.actionMatchFragmentToEndMatchFragment(true, time),
+                        navOptions
                     )
                 }
                 GameStatus.LOSE -> {
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.matchFragment, true)
+                        .build()
                     findNavController().navigate(
-                        MatchFragmentDirections.actionMatchFragmentToEndMatchFragment(false)
+                        MatchFragmentDirections.actionMatchFragmentToEndMatchFragment(false),
+                        navOptions
                     )
                 }
                 GameStatus.ONGOING -> {

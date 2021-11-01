@@ -74,11 +74,5 @@
         <action
             android:id="@+id/action_endWriteFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
-        <argument
-            android:name="correctAnswers"
-            app:argType="integer" />
-        <argument
-            android:name="incorrectAnswers"
-            app:argType="integer" />
     </fragment>
 </navigation>

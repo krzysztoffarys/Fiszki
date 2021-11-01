@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.Toast
@@ -33,6 +34,7 @@ class EndMatchFragment : Fragment(R.layout.end_match_fragment) {
             binding.tv.setTextColor(Color.GREEN)
             viewModel.addResult(time)
             viewModel.allResults()
+            binding.tvResults.movementMethod = ScrollingMovementMethod()
         } else {
             binding.tv.text = context?.getString(R.string.lose)
             binding.tv.setTextColor(Color.RED)

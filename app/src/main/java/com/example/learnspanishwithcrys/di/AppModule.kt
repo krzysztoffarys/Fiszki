@@ -1,5 +1,6 @@
 package com.example.learnspanishwithcrys.di
 
+import android.media.MediaPlayer
 import com.example.learnspanishwithcrys.other.Constants.RANKING_FIREBASE
 import com.example.learnspanishwithcrys.repositories.Repository
 import com.google.firebase.firestore.CollectionReference
@@ -27,4 +28,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(rankingCollection: CollectionReference) = Repository(rankingCollection)
+
+    @Singleton
+    @Provides
+    fun provideMediaPlayer() = MediaPlayer()
 }
