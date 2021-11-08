@@ -26,6 +26,12 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
                 MenuFragmentDirections.actionMenuFragmentToWriteFragment()
             )
         }
+
+        binding.cvFlashcard.setOnClickListener {
+            findNavController().navigate(
+                MenuFragmentDirections.actionMenuFragmentToFlashcardFragment()
+            )
+        }
     }
 
 }

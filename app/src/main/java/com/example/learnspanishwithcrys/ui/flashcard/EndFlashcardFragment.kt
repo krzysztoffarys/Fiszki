@@ -1,4 +1,4 @@
-package com.example.learnspanishwithcrys.ui.write
+package com.example.learnspanishwithcrys.ui.flashcard
 
 import android.graphics.Color
 import android.media.MediaPlayer
@@ -13,15 +13,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnspanishwithcrys.R
 import com.example.learnspanishwithcrys.adapters.EndWordAdapter
-import com.example.learnspanishwithcrys.databinding.EndWriteFragmentBinding
+import com.example.learnspanishwithcrys.databinding.EndFlashcardFragmentBinding
 import com.example.learnspanishwithcrys.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EndWriteFragment : Fragment(R.layout.end_write_fragment) {
+class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
 
-    private lateinit var binding: EndWriteFragmentBinding
+    private lateinit var binding: EndFlashcardFragmentBinding
     private lateinit var endWordAdapter: EndWordAdapter
     private val viewModel: SharedViewModel by activityViewModels()
     @Inject
@@ -29,18 +29,18 @@ class EndWriteFragment : Fragment(R.layout.end_write_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = EndWriteFragmentBinding.bind(view)
+        binding = EndFlashcardFragmentBinding.bind(view)
         setupTextView()
         setupRecyclerView()
         binding.btnBackToMenu.setOnClickListener {
             findNavController().navigate(
-                EndWriteFragmentDirections.actionEndWriteFragmentToMenuFragment()
+                EndFlashcardFragmentDirections.actionEndFlashcardFragmentToMenuFragment()
             )
         }
 
         binding.btnRestart.setOnClickListener {
             findNavController().navigate(
-                EndWriteFragmentDirections.actionEndWriteFragmentToWriteFragment()
+                EndFlashcardFragmentDirections.actionEndFlashcardFragmentToFlashcardFragment()
             )
         }
         endWordAdapter.setOnSoundItemClickListener { url ->
@@ -49,16 +49,19 @@ class EndWriteFragment : Fragment(R.layout.end_write_fragment) {
             mediaPlayer.prepare()
             mediaPlayer.start()
         }
-        endWordAdapter.answers = viewModel.writeAnswers
+        endWordAdapter.answers = viewModel.flashcardAnswers
         endWordAdapter.words = viewModel.words
+
     }
+
+
     private fun setupTextView() {
         val text = SpannableStringBuilder()
-        val span1 = SpannableString(viewModel.writeCorrectAnswers.toString())
+        val span1 = SpannableString(viewModel.flashcardCorrectAnswers.toString())
         span1.setSpan(ForegroundColorSpan(Color.GREEN), 0, span1.length, 0)
-        val span2 = SpannableString(viewModel.writeIncorrectAnswers.toString())
+        val span2 = SpannableString(viewModel.flashcardIncorrectAnswers.toString())
         span2.setSpan(ForegroundColorSpan(Color.RED), 0, span2.length, 0)
-        text.append(span1, " - correct answers\n", span2, " - incorrect answers")
+        text.append(span1, " - known words\n", span2, " - unknown words")
         binding.tvAnswers.text = text
     }
 
@@ -67,4 +70,5 @@ class EndWriteFragment : Fragment(R.layout.end_write_fragment) {
         adapter = endWordAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }
+
 }

@@ -10,7 +10,7 @@ import com.example.learnspanishwithcrys.data.model.Word
 import com.example.learnspanishwithcrys.databinding.ItemWordBinding
 
 
-class WriteWordAdapter : RecyclerView.Adapter<WriteWordAdapter.WordViewHolder>() {
+class EndWordAdapter : RecyclerView.Adapter<EndWordAdapter.WordViewHolder>() {
     inner class WordViewHolder(val binding: ItemWordBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffCallback = object : DiffUtil.ItemCallback<Word>() {

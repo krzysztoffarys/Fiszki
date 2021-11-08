@@ -9,4 +9,6 @@
     <color name="color_light_gray">#888</color>
     <color name="color_very_light_gray">#bbb</color>
     <color name="color_green">#0f0</color>
+    <color name="color_dark_green">#135208</color>
+    <color name="color_red">#f00</color>
 </resources>

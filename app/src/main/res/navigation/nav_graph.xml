@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_menuFragment_to_writeFragment"
             app:destination="@id/writeFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_flashcardFragment"
+            app:destination="@id/flashcardFragment" />
     </fragment>
     <fragment
         android:id="@+id/writeFragment"
@@ -74,5 +77,26 @@
         <action
             android:id="@+id/action_endWriteFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flashcardFragment"
+        android:name="com.example.learnspanishwithcrys.ui.flashcard.FlashcardFragment"
+        android:label="flashcard_fragment"
+        tools:layout="@layout/flashcard_fragment" >
+        <action
+            android:id="@+id/action_flashcardFragment_to_endFlashcardFragment"
+            app:destination="@id/endFlashcardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endFlashcardFragment"
+        android:name="com.example.learnspanishwithcrys.ui.flashcard.EndFlashcardFragment"
+        android:label="end_flashcard_fragment"
+        tools:layout="@layout/end_flashcard_fragment" >
+        <action
+            android:id="@+id/action_endFlashcardFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_endFlashcardFragment_to_flashcardFragment"
+            app:destination="@id/flashcardFragment" />
     </fragment>
 </navigation>

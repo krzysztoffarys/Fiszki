@@ -20,4 +20,14 @@ class SharedViewModel @Inject constructor(
         writeCorrectAnswers = 0
         writeIncorrectAnswers = 0
     }
+
+    //flashcard
+    var flashcardCorrectAnswers = 0
+    var flashcardIncorrectAnswers = 0
+    var flashcardAnswers = mutableListOf<Boolean>()
+
+    fun newFlashcard() {
+        flashcardCorrectAnswers = 0
+        flashcardIncorrectAnswers = 0
+    }
 }
