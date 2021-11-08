@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
-    val repository: Repository
+    repository: Repository
 ) : ViewModel() {
-    val words = repository.provideWords(6)
+    val words = repository.words
 
     //write functionality
     var writeCorrectAnswers = 0

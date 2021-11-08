@@ -6,7 +6,9 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import com.example.learnspanishwithcrys.other.Constants.RANKING_FIREBASE
 import com.example.learnspanishwithcrys.other.Constants.SHARED_PREF
+import com.example.learnspanishwithcrys.other.Constants.WORDS_FIREBASE
 import com.example.learnspanishwithcrys.repositories.Repository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -16,6 +18,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -28,11 +31,24 @@ object AppModule {
     fun provideFireStore() = Firebase.firestore
 
     @Provides
+    @Singleton
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
+
+
+    @Provides
+    @Named("ranking")
     fun provideRankingCollection(fireStore: FirebaseFirestore) = fireStore.collection(RANKING_FIREBASE)
+
+    @Provides
+    @Named("word")
+    fun provideWordCollection(fireStore: FirebaseFirestore) = fireStore.collection(WORDS_FIREBASE)
 
     @Singleton
     @Provides
-    fun provideRepository(rankingCollection: CollectionReference) = Repository(rankingCollection)
+    fun provideRepository(
+        @Named("ranking") rankingCollection: CollectionReference,
+        @Named("word") wordCollection: CollectionReference) =
+        Repository(rankingCollection, wordCollection)
 
     @Singleton
     @Provides

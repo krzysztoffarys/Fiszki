@@ -28,7 +28,7 @@ class FlashcardViewModel
     var incorrectAnswers = 0
     var answers = mutableListOf<Boolean>()
 
-    val options = arrayOf("Definition", "Term", "Duo")
+    val options = arrayOf("Definicja", "Określenie", "Oba")
     var selectedOption = sharedPref.getInt("flashcardOption", 0)
 
     init {
@@ -38,6 +38,23 @@ class FlashcardViewModel
 
     fun nextWord() {
         _selectedWordId.postValue(selectedWordId.value?.plus(1))
+    }
+
+    fun previousWord() {
+
+        if(_selectedWordId.value!! <= 0) {
+            return
+        }
+        _selectedWordId.postValue(selectedWordId.value?.minus(1))
+        if (answers[answers.size - 1]) {
+            _knownWords.postValue(knownWords.value?.minus(1))
+            answers.removeAt(answers.size - 1)
+            correctAnswers--
+        } else {
+            _unknownWords.postValue(unknownWords.value?.minus(1))
+            answers.removeAt(answers.size - 1)
+            incorrectAnswers--
+        }
     }
 
     fun isTheWordKnown(status: Boolean) {

@@ -147,7 +147,7 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
         binding.btnOptions.setOnClickListener {
             var selectedOption = viewModel.selectedOption
             AlertDialog.Builder(requireContext(), R.style.AlertDialogStyle)
-                .setTitle("Choose front")
+                .setTitle("Wybierz co chesz zobaczyć na karcie")
                 .setSingleChoiceItems(viewModel.options, selectedOption) { _, i ->
                     selectedOption = i
                 }
@@ -161,6 +161,12 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
                 .setNegativeButton("Decline") { _, _ -> }
                 .create()
                 .show()
+        }
+
+        //back
+
+        binding.ivBack.setOnClickListener {
+            viewModel.previousWord()
         }
     }
 

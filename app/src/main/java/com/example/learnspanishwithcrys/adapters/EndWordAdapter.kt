@@ -23,7 +23,6 @@ class EndWordAdapter : RecyclerView.Adapter<EndWordAdapter.WordViewHolder>() {
         }
     }
     private var onSoundItemClickListener: ((String) -> Unit)? = null
-    private var onFavoriteItemClickListener: (() -> Unit)? = null
 
     private val differ = AsyncListDiffer(this, diffCallback)
 
@@ -65,8 +64,5 @@ class EndWordAdapter : RecyclerView.Adapter<EndWordAdapter.WordViewHolder>() {
 
     fun setOnSoundItemClickListener(onItemClick: ((String) -> Unit)?) {
         this.onSoundItemClickListener = onItemClick
-    }
-    fun setOnFavoriteItemClickListener(onItemClick: (() -> Unit)?) {
-        this.onFavoriteItemClickListener = onItemClick
     }
 }

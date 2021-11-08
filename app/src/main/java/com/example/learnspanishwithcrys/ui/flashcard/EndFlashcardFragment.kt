@@ -49,9 +49,6 @@ class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
             mediaPlayer.prepare()
             mediaPlayer.start()
         }
-        endWordAdapter.answers = viewModel.flashcardAnswers
-        endWordAdapter.words = viewModel.words
-
     }
 
 
@@ -69,6 +66,8 @@ class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
         endWordAdapter = EndWordAdapter()
         adapter = endWordAdapter
         layoutManager = LinearLayoutManager(requireContext())
+        endWordAdapter.answers = viewModel.flashcardAnswers
+        endWordAdapter.words = viewModel.words
     }
 
 }

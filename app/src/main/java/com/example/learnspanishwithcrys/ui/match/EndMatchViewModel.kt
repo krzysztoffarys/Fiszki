@@ -10,10 +10,12 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class EndMatchViewModel @Inject constructor(
     private val repository: Repository,
+    @Named("ranking")
     private val rankingCollection: CollectionReference
 ): ViewModel() {
     private val _resultStatus = MutableLiveData<Resource<List<ResultMatch>>>()

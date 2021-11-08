@@ -1,17 +1,30 @@
 <resources>
     <string name="app_name">Learn Spanish with Crys</string>
-    <string name="start_game">Start Game</string>
-    <string name="play_again">Play Again</string>
-    <string name="back_to_menu">Back to Menu</string>
-    <string name="won">You won with time:</string>
-    <string name="lose">You lose. Do you want to try again? </string>
-    <string name="match">Match</string>
-    <string name="write">Write</string>
-    <string name="flashcard">Flashcard</string>
-    <string name="test">Test</string>
-    <string name="logout">Logout</string>
-    <string name="type_spanish">Type the spanish:</string>
-    <string name="don_t_know">Don\'t know</string>
-    <string name="correct_answer">Correct Answer</string>
-    <string name="options">options</string>
+    <string name="start_game">Rozpocznij grę</string>
+    <string name="play_again">Zagraj jeszcze raz</string>
+    <string name="back_to_menu">Powrót do menu</string>
+    <string name="won">Wygrałeś z czasem: </string>
+    <string name="lose">Przegrałeś, chcesz spróbować ponownie?</string>
+    <string name="match">Dopasuj</string>
+    <string name="write">Napisz</string>
+    <string name="flashcard">Fiszki</string>
+    <string name="logout">Wyloguj się</string>
+    <string name="type_spanish">Wpisz po hiszpańsku</string>
+    <string name="don_t_know">Nie wiem</string>
+    <string name="correct_answer">Poprawna odpowiedź</string>
+    <string name="options">Opcje</string>
+    //
+    <string name="login_header">Zaloguj się</string>
+    <string name="register_header">Zarejestruj się</string>
+    <string name="swipe">Nie jesteś jeszcze użytkownikem?\nPrzesuń, żeby się zarejestrować!</string>
+    <string name="swipe_already">Jesteś już posiadaczem konta?\nPrzesuń, żeby się zarejestrować!</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Hasło</string>
+    <string name="confirm_password">Powtórz hasło</string>
+    <string name="login">Zaloguj się</string>
+    <string name="register">Zarejestruj się</string>
+    <string name="successful_registration">Udało Ci się zarejestrować :)</string>
+    <string name="successful_login">Zalogowałeś się</string>
+    <string name="unknown_error">Wystąpił nieznay błąd</string>
+    <string name="empty_field">Pole jest puste</string>
 </resources>

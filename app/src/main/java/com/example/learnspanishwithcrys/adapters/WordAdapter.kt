@@ -21,8 +21,7 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
             return oldItem.polish == newItem.polish
         }
     }
-    private var onSoundItemClickListener: (() -> Unit)? = null
-    private var onFavoriteItemClickListener: (() -> Unit)? = null
+    private var onSoundItemClickListener: ((String) -> Unit)? = null
 
     private val differ = AsyncListDiffer(this, diffCallback)
 
@@ -49,10 +48,7 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
         return words.size
     }
 
-    fun setOnSoundItemClickListener(onItemClick: (() -> Unit)?) {
+    fun setOnSoundItemClickListener(onItemClick: ((String) -> Unit)?) {
         this.onSoundItemClickListener = onItemClick
-    }
-    fun setOnFavoriteItemClickListener(onItemClick: (() -> Unit)?) {
-        this.onFavoriteItemClickListener = onItemClick
     }
 }
