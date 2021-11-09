@@ -142,6 +142,6 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setWords(words: List<Word>) {
-        _words = words
+        _words = words.subList(0, 6)
     }
 }

@@ -25,7 +25,7 @@ class MatchFragment : Fragment(R.layout.match_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = MatchFragmentBinding.bind(view)
-        viewModel.setWords(sharedViewModel.words)
+        viewModel.setWords(sharedViewModel.words.shuffled())
         viewModel.prepareWords()
         setButtons()
         subscribeToObservers()

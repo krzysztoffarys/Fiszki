@@ -58,7 +58,7 @@ class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
         span1.setSpan(ForegroundColorSpan(Color.GREEN), 0, span1.length, 0)
         val span2 = SpannableString(viewModel.flashcardIncorrectAnswers.toString())
         span2.setSpan(ForegroundColorSpan(Color.RED), 0, span2.length, 0)
-        text.append(span1, " - known words\n", span2, " - unknown words")
+        text.append(span1, " - słów już znasz\n", span2, " - jeszcze musisz poznać")
         binding.tvAnswers.text = text
     }
 

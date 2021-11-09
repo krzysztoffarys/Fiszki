@@ -1,6 +1,9 @@
 package com.example.learnspanishwithcrys.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.learnspanishwithcrys.data.model.Word
+import com.example.learnspanishwithcrys.other.Resource
 import com.example.learnspanishwithcrys.repositories.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -9,7 +12,9 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     repository: Repository
 ) : ViewModel() {
-    val words = repository.words
+
+    val wordsStatus: LiveData<Resource<List<Word>>> = repository.wordsStatus
+    lateinit var words : List<Word>
 
     //write functionality
     var writeCorrectAnswers = 0

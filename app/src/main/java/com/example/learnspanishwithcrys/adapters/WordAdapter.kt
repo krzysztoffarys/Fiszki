@@ -41,6 +41,12 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
             tvSpanish.text = curWord.spanish
         }
 
+        holder.binding.ivSound.setOnClickListener {
+            onSoundItemClickListener?.let { click ->
+                click(curWord.url)
+            }
+        }
+
 
     }
 
