@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnspanishwithcrys.R
-import com.example.learnspanishwithcrys.adapters.EndWordAdapter
+import com.example.learnspanishwithcrys.adapters.WordAdapter
 import com.example.learnspanishwithcrys.databinding.EndFlashcardFragmentBinding
 import com.example.learnspanishwithcrys.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +22,7 @@ import javax.inject.Inject
 class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
 
     private lateinit var binding: EndFlashcardFragmentBinding
-    private lateinit var endWordAdapter: EndWordAdapter
+    private lateinit var wordAdapter: WordAdapter
     private val viewModel: SharedViewModel by activityViewModels()
     @Inject
     lateinit var mediaPlayer: MediaPlayer
@@ -43,7 +43,7 @@ class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
                 EndFlashcardFragmentDirections.actionEndFlashcardFragmentToFlashcardFragment()
             )
         }
-        endWordAdapter.setOnSoundItemClickListener { url ->
+        wordAdapter.setOnSoundItemClickListener { url ->
             mediaPlayer.reset()
             mediaPlayer.setDataSource(url)
             mediaPlayer.prepare()
@@ -63,11 +63,11 @@ class EndFlashcardFragment : Fragment(R.layout.end_flashcard_fragment) {
     }
 
     private fun setupRecyclerView() = binding.rv.apply {
-        endWordAdapter = EndWordAdapter()
-        adapter = endWordAdapter
+        wordAdapter = WordAdapter()
+        adapter = wordAdapter
         layoutManager = LinearLayoutManager(requireContext())
-        endWordAdapter.answers = viewModel.flashcardAnswers
-        endWordAdapter.words = viewModel.words
+        wordAdapter.answers = viewModel.flashcardAnswers
+        wordAdapter.words = viewModel.words
     }
 
 }

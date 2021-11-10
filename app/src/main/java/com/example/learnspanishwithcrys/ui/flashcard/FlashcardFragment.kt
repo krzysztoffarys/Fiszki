@@ -91,7 +91,10 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
             it.visibility = View.INVISIBLE
             true
         }
+        //the x coordinate
         var wordStatus = true
+        //on drop
+        var dropStatus = false
         val dragListener = View.OnDragListener { view, event ->
             when(event.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
@@ -104,12 +107,20 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
                 DragEvent.ACTION_DRAG_LOCATION -> {
                     val width = view.width / 2
                     binding.ivStatus.alpha = ((width) - event.x).absoluteValue / width / 2
-                    if (width - event.x > 0) {
-                        wordStatus = true
-                        binding.ivStatus.setBackgroundResource(R.drawable.ic_check)
-                    } else {
-                        wordStatus = false
-                        binding.ivStatus.setBackgroundResource(R.drawable.ic_cross)
+                    wordStatus = event.x < width
+                    when {
+                        event.x > width + 150 -> {
+                            dropStatus = true
+                            binding.ivStatus.setBackgroundResource(R.drawable.ic_cross)
+                        }
+                        event.x < width - 150 -> {
+                            binding.ivStatus.setBackgroundResource(R.drawable.ic_check)
+                            dropStatus = true
+                        }
+                        else -> {
+                            dropStatus = false
+                            binding.ivStatus.background = null
+                        }
                     }
 
                     true
@@ -126,10 +137,12 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
                     val v = event.localState as View
-                    v.visibility = View.VISIBLE
-                    binding.ivStatus.background = null
-                    viewModel.isTheWordKnown(wordStatus)
-                    viewModel.nextWord()
+                    if(dropStatus) {
+                        v.visibility = View.VISIBLE
+                        binding.ivStatus.background = null
+                        viewModel.isTheWordKnown(wordStatus)
+                        viewModel.nextWord()
+                    }
                     view.invalidate()
                     true
                 }
@@ -154,14 +167,14 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
                 .setSingleChoiceItems(viewModel.options, selectedOption) { _, i ->
                     selectedOption = i
                 }
-                .setPositiveButton("Accept") { _, _ ->
+                .setPositiveButton("OK") { _, _ ->
                     sharedPref.edit().putInt(
                         "flashcardOption", selectedOption
                     ).apply()
                     viewModel.selectedOption = selectedOption
                     viewModel.optionsChange()
                 }
-                .setNegativeButton("Decline") { _, _ -> }
+                .setNegativeButton("Anuluj") { _, _ -> }
                 .create()
                 .show()
         }
@@ -223,6 +236,8 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
                         binding.tvBackground2.text = "${viewModel.words[it+1].polish}\n\n${viewModel.words[it+1].spanish}"
                     }
                 }
+            } else{
+                binding.tvBackground2.text = ""
             }
             //progressbar
             if (it - 1 < viewModel.words.size) {

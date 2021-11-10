@@ -1,19 +1,18 @@
 package com.example.learnspanishwithcrys.ui.menu
 
 import android.media.MediaPlayer
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnspanishwithcrys.R
 import com.example.learnspanishwithcrys.adapters.CategoryAdapter
-import com.example.learnspanishwithcrys.adapters.EndWordAdapter
-import com.example.learnspanishwithcrys.adapters.WordAdapter
 import com.example.learnspanishwithcrys.data.model.Category
-import com.example.learnspanishwithcrys.data.model.Word
 import com.example.learnspanishwithcrys.databinding.MenuFragmentBinding
 import com.example.learnspanishwithcrys.other.Resource
 import com.example.learnspanishwithcrys.ui.SharedViewModel
@@ -36,20 +35,31 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = MenuFragmentBinding.bind(view)
+        subscribeToObservers()
+        setupRecyclerView()
 
         binding.cvMatch.setOnClickListener {
+            if (sharedViewModel.isLoading) {
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 MenuFragmentDirections.actionMenuFragmentToStartMatchFragment()
             )
         }
 
         binding.cvWrite.setOnClickListener {
+            if (sharedViewModel.isLoading) {
+                return@setOnClickListener
+            }
             findNavController().navigate(
-                MenuFragmentDirections.actionMenuFragmentToWriteFragment()
+                MenuFragmentDirections.actionMenuFragmentToStartWriteFragment()
             )
         }
 
         binding.cvFlashcard.setOnClickListener {
+            if (sharedViewModel.isLoading) {
+                return@setOnClickListener
+            }
             findNavController().navigate(
                 MenuFragmentDirections.actionMenuFragmentToFlashcardFragment()
             )
@@ -57,24 +67,23 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
 
         binding.cvLogout.setOnClickListener {
             auth.signOut()
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.writeFragment, true)
+                .build()
             findNavController().navigate(
-                MenuFragmentDirections.actionMenuFragmentToAuthFragment()
+                MenuFragmentDirections.actionMenuFragmentToAuthFragment(),
+                navOptions
             )
         }
 
-        subscribeToObservers()
-        setupRecyclerView()
+        categoryAdapter.setOnItemClickListener { category ->
+            sharedViewModel.loadNewCategory(category)
+        }
     }
 
 
     private fun setupRecyclerView() = binding.rv.apply {
-        categoryAdapter = CategoryAdapter(listOf(
-            Category("Charakter i osobowośc", 12),
-            Category("Czas", 38),
-            Category("Czesci ciała", 25),
-            Category("Dom", 34),
-
-        ))
+        categoryAdapter = CategoryAdapter()
         adapter = categoryAdapter
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
@@ -83,16 +92,27 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
         sharedViewModel.wordsStatus.observe(viewLifecycleOwner, { result ->
             when(result.status) {
                 Resource.Status.SUCCESS -> {
+                    sharedViewModel.isLoading = false
+                    binding.progressBar.visibility = View.GONE
                     binding.tvTerms.text = "${result.data!!.size} słówek"
                     sharedViewModel.words = result.data!!
                 }
-                Resource.Status.LOADING -> {
-                }
                 Resource.Status.ERROR -> {
+                    sharedViewModel.isLoading = false
+                    binding.progressBar.visibility = View.GONE
                     val message = result.message ?: context?.getString(R.string.unknown_error)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
+                Resource.Status.LOADING -> {
+                    sharedViewModel.isLoading = true
+                    binding.progressBar.visibility = View.VISIBLE
+                }
             }
+        })
+
+        sharedViewModel.curCategory.observe(viewLifecycleOwner, { category ->
+            binding.tvTitle.text = category.name
+            categoryAdapter.categories =  sharedViewModel.provideCategories()
         })
     }
 

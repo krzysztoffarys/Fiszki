@@ -25,10 +25,10 @@ class WriteFragment : Fragment(R.layout.write_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = WriteFragmentBinding.bind(view)
-        sharedViewModel.newWrite()
 
 
-        viewModel.words = sharedViewModel.words
+
+        viewModel.words = sharedViewModel.writeWords
         subscribeToObserves()
         binding.et.setOnEditorActionListener { editText, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {

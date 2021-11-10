@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.learnspanishwithcrys.data.model.ResultMatch
 import com.example.learnspanishwithcrys.other.Resource
 import com.example.learnspanishwithcrys.repositories.Repository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.toObject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,11 +17,13 @@ import javax.inject.Named
 class EndMatchViewModel @Inject constructor(
     private val repository: Repository,
     @Named("ranking")
-    private val rankingCollection: CollectionReference
+    private val rankingCollection: CollectionReference,
+    var auth: FirebaseAuth
 ): ViewModel() {
     private val _resultStatus = MutableLiveData<Resource<List<ResultMatch>>>()
     val resultStatus: LiveData<Resource<List<ResultMatch>>> = _resultStatus
-    val user = "Crys"
+    val user = getUsername(auth.currentUser?.email ?: "someone")
+
 
     fun addResult(time: Double) {
             val result = ResultMatch(user, time)
@@ -55,6 +58,17 @@ class EndMatchViewModel @Inject constructor(
                 }
             }
 
+    }
+
+    private fun getUsername(email: String) : String {
+        var word = ""
+        for (i in email) {
+            if (i == '@') {
+                break
+            }
+            word += i
+        }
+        return word
     }
 
 }

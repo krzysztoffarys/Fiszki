@@ -1,6 +1,7 @@
 package com.example.learnspanishwithcrys.data.model
 
 data class Category(
-    val name: String = "",
-    val wordAmount: Int = 0
+    var name: String = "",
+    var wordAmount: Int = 0,
+    val collectionName: String = ""
 )

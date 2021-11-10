@@ -51,14 +51,14 @@
             android:id="@+id/action_menuFragment_to_startMatchFragment"
             app:destination="@id/startMatchFragment" />
         <action
-            android:id="@+id/action_menuFragment_to_writeFragment"
-            app:destination="@id/writeFragment" />
-        <action
             android:id="@+id/action_menuFragment_to_flashcardFragment"
             app:destination="@id/flashcardFragment" />
         <action
             android:id="@+id/action_menuFragment_to_authFragment"
             app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_startWriteFragment"
+            app:destination="@id/startWriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/writeFragment"
@@ -75,11 +75,11 @@
         android:label="end_write_fragment"
         tools:layout="@layout/end_write_fragment" >
         <action
-            android:id="@+id/action_endWriteFragment_to_writeFragment"
-            app:destination="@id/writeFragment" />
-        <action
             android:id="@+id/action_endWriteFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_endWriteFragment_to_startWriteFragment"
+            app:destination="@id/startWriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/flashcardFragment"
@@ -88,7 +88,8 @@
         tools:layout="@layout/flashcard_fragment" >
         <action
             android:id="@+id/action_flashcardFragment_to_endFlashcardFragment"
-            app:destination="@id/endFlashcardFragment" />
+            app:destination="@id/endFlashcardFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/endFlashcardFragment"
@@ -110,5 +111,14 @@
         <action
             android:id="@+id/action_authFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startWriteFragment"
+        android:name="com.example.learnspanishwithcrys.ui.write.StartWriteFragment"
+        android:label="start_write_fragment"
+        tools:layout="@layout/start_write_fragment" >
+        <action
+            android:id="@+id/action_startWriteFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
     </fragment>
 </navigation>

@@ -31,10 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/type_spanish"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/et"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnDontKnow"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

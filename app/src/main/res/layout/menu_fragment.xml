@@ -17,7 +17,6 @@
         android:layout_height="150dp"
         android:background="@color/white"
         android:paddingTop="50dp"
-        android:text="Charakter i osobowość"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -179,6 +178,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTerms"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

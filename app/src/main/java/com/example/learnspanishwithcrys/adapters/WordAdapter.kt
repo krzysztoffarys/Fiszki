@@ -1,5 +1,6 @@
 package com.example.learnspanishwithcrys.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -29,6 +30,8 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
+    lateinit var answers: List<Boolean>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val binding = ItemWordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return WordViewHolder(binding)
@@ -39,11 +42,16 @@ class WordAdapter : RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
         holder.binding.apply {
             tvPolish.text = curWord.polish
             tvSpanish.text = curWord.spanish
-        }
+            if (answers[position]) {
+                ivSound.setColorFilter(Color.GREEN)
+            } else {
+                ivSound.setColorFilter(Color.RED)
+            }
 
-        holder.binding.ivSound.setOnClickListener {
-            onSoundItemClickListener?.let { click ->
-                click(curWord.url)
+            ivSound.setOnClickListener {
+                onSoundItemClickListener?.let { click ->
+                    click(curWord.url)
+                }
             }
         }
 

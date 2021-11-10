@@ -30,7 +30,7 @@ class EndMatchFragment : Fragment(R.layout.end_match_fragment) {
         if (args.victory) {
             subscribeToObservers()
             val time = args.time.toDouble()
-            binding.tv.text = (context?.getString(R.string.won) + " " + time)
+            binding.tv.text = (context?.getString(R.string.won) + " " + time + "s")
             binding.tv.setTextColor(Color.GREEN)
             viewModel.addResult(time)
             viewModel.allResults()
@@ -61,7 +61,7 @@ class EndMatchFragment : Fragment(R.layout.end_match_fragment) {
                     binding.progressBar.visibility = View.GONE
                     val text = SpannableStringBuilder()
                     for (i in result.data!!.indices) {
-                        var textLine = "${i + 1}. " + result.data[i].user + " " + result.data[i].time + "\n"
+                        var textLine = "${i + 1}. " + result.data[i].user + "    " + result.data[i].time + "s" +  "\n"
                         if (i < 9) {
                             textLine = "0$textLine"
                         }

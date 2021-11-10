@@ -47,8 +47,8 @@ object AppModule {
     @Provides
     fun provideRepository(
         @Named("ranking") rankingCollection: CollectionReference,
-        @Named("word") wordCollection: CollectionReference) =
-        Repository(rankingCollection, wordCollection)
+        fireStore: FirebaseFirestore) =
+        Repository(rankingCollection, fireStore)
 
     @Singleton
     @Provides
