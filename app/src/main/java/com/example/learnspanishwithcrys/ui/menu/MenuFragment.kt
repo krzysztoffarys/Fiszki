@@ -9,7 +9,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnspanishwithcrys.R
+import com.example.learnspanishwithcrys.adapters.CategoryAdapter
+import com.example.learnspanishwithcrys.adapters.EndWordAdapter
 import com.example.learnspanishwithcrys.adapters.WordAdapter
+import com.example.learnspanishwithcrys.data.model.Category
+import com.example.learnspanishwithcrys.data.model.Word
 import com.example.learnspanishwithcrys.databinding.MenuFragmentBinding
 import com.example.learnspanishwithcrys.other.Resource
 import com.example.learnspanishwithcrys.ui.SharedViewModel
@@ -21,7 +25,7 @@ import javax.inject.Inject
 class MenuFragment : Fragment(R.layout.menu_fragment) {
 
     private lateinit var binding: MenuFragmentBinding
-    private lateinit var wordAdapter: WordAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
     private val sharedViewModel: SharedViewModel by activityViewModels()
     @Inject
     lateinit var auth: FirebaseAuth
@@ -32,7 +36,6 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = MenuFragmentBinding.bind(view)
-        setupRecyclerView()
 
         binding.cvMatch.setOnClickListener {
             findNavController().navigate(
@@ -59,36 +62,33 @@ class MenuFragment : Fragment(R.layout.menu_fragment) {
             )
         }
 
-        wordAdapter.setOnSoundItemClickListener { url ->
-            mediaPlayer.reset()
-            mediaPlayer.setDataSource(url)
-            mediaPlayer.prepare()
-            mediaPlayer.start()
-        }
-
         subscribeToObservers()
+        setupRecyclerView()
     }
 
+
     private fun setupRecyclerView() = binding.rv.apply {
-        wordAdapter = WordAdapter()
-        adapter = wordAdapter
-        layoutManager = LinearLayoutManager(requireContext())
+        categoryAdapter = CategoryAdapter(listOf(
+            Category("Charakter i osobowośc", 12),
+            Category("Czas", 38),
+            Category("Czesci ciała", 25),
+            Category("Dom", 34),
+
+        ))
+        adapter = categoryAdapter
+        layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun subscribeToObservers() {
         sharedViewModel.wordsStatus.observe(viewLifecycleOwner, { result ->
             when(result.status) {
                 Resource.Status.SUCCESS -> {
-                    binding.progressBar.visibility = View.GONE
-                    wordAdapter.words = result.data!!
-                    binding.tvTerms.text = "${result.data.size} słówek"
-                    sharedViewModel.words = result.data
+                    binding.tvTerms.text = "${result.data!!.size} słówek"
+                    sharedViewModel.words = result.data!!
                 }
                 Resource.Status.LOADING -> {
-                    binding.progressBar.visibility = View.VISIBLE
                 }
                 Resource.Status.ERROR -> {
-                    binding.progressBar.visibility = View.GONE
                     val message = result.message ?: context?.getString(R.string.unknown_error)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }

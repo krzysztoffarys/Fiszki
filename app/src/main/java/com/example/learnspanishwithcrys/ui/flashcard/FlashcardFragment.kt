@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.DragEvent
 import android.view.View
@@ -32,6 +33,8 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
     private val viewModel: FlashcardViewModel by viewModels()
     @Inject
     lateinit var sharedPref: SharedPreferences
+    @Inject
+    lateinit var mediaPlayer: MediaPlayer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -167,6 +170,13 @@ class FlashcardFragment : Fragment(R.layout.flashcard_fragment) {
 
         binding.ivBack.setOnClickListener {
             viewModel.previousWord()
+        }
+
+        binding.ivSound.setOnClickListener {
+            mediaPlayer.reset()
+            mediaPlayer.setDataSource(viewModel.words[viewModel.selectedWordId.value!!].url)
+            mediaPlayer.prepare()
+            mediaPlayer.start()
         }
     }
 

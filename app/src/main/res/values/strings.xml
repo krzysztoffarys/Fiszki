@@ -27,4 +27,5 @@
     <string name="successful_login">Zalogowałeś się</string>
     <string name="unknown_error">Wystąpił nieznay błąd</string>
     <string name="empty_field">Pole jest puste</string>
+    <string name="change_categorie">Wybierz kategorie z której chcesz się uczyć</string>
 </resources>
